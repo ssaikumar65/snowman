@@ -25,6 +25,7 @@
   display: flex;
   user-select: none;
   position: relative;
+  min-width: 700px;
 }
 .keyboardContainer,
 .drawingContainer {
@@ -94,10 +95,12 @@
 }
 .helpBox {
   display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  right: 0;
   overflow: hidden;
   padding: 8px 16px;
+  width: 100%;
 }
 .helpBox .info {
   max-width: 400px;
@@ -110,10 +113,10 @@
   cursor: pointer;
 }
 .visible {
-  transform: translateX(0%);
+  transform: translateY(0%);
 }
 .hide {
-  transform: translateX(110%);
+  transform: translateY(-110%);
 }
 @media screen and (max-width: 500px) {
   .main {
