@@ -5,7 +5,6 @@
   font-family: Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
     sans-serif;
 
-  color-scheme: light dark;
   color: var(--primary);
   background-color: var(--bg);
 
@@ -82,11 +81,4 @@
 }
 .gameOver button:hover {
   background-color: var(--primary);
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --primary: #242424;
-    color: var(--bg);
-  }
 }
