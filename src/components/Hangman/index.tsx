@@ -6,8 +6,6 @@ type Props = {
 };
 
 const Hangman = ({ incorrectGuess }: Props) => {
-  console.log(HANGMAN.slice(0, HANGMAN.length - incorrectGuess.length));
-
   return (
     <div className="hangmanHolder">
       <div className="hangman">
