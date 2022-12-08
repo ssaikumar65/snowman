@@ -10,24 +10,14 @@ const randomWord = (): string => {
 };
 
 const CHANCES: number = 7;
+const INFO: string =
+  "Player should figure out the unknown word by guessing the letters in 7 chances. If too many incorrect letters are guessed, the snowman will disappear and the player loses the game.";
 
 const App = () => {
-  const [word] = useState<string>(randomWord());
+  const [word, setWord] = useState<string>(randomWord());
   const [guess, setGuess] = useState<string[]>([]);
   const [incorrectGuess, setIncorrectGuess] = useState<string[]>([]);
-
-  const addGuess = useCallback(
-    (letter: string) => {
-      if (guess.includes(letter) || incorrectGuess.includes(letter)) return;
-
-      if (!word.split("").includes(letter)) {
-        setIncorrectGuess((incorrectGuess) => [...incorrectGuess, letter]);
-        return;
-      }
-      setGuess((guess) => [...guess, letter]);
-    },
-    [guess, incorrectGuess]
-  );
+  const [info, setInfo] = useState<boolean>(false);
 
   useEffect(() => {
     const keyHandler = (e: KeyboardEvent) => {
@@ -45,6 +35,29 @@ const App = () => {
     };
   }, [guess, incorrectGuess]);
 
+  const addGuess = useCallback(
+    (letter: string) => {
+      if (guess.includes(letter) || incorrectGuess.includes(letter)) return;
+
+      if (!word.split("").includes(letter)) {
+        setIncorrectGuess((incorrectGuess) => [...incorrectGuess, letter]);
+        return;
+      }
+      setGuess((guess) => [...guess, letter]);
+    },
+    [guess, incorrectGuess]
+  );
+
+  const onGameOver = (): void => {
+    setWord(randomWord());
+    setGuess([]);
+    setIncorrectGuess([]);
+  };
+
+  const onInfo = (): void => {
+    setInfo(!info);
+  };
+
   const gameWon = word.split("").every((item) => guess.includes(item));
 
   if (gameWon) {
@@ -53,7 +66,7 @@ const App = () => {
         <span>
           Congratulations. You Won. The word is <span>{word}</span>
         </span>
-        <button onClick={() => window.location.reload()}>Start Again</button>
+        <button onClick={onGameOver}>Start Again</button>
       </div>
     );
   }
@@ -62,6 +75,14 @@ const App = () => {
     <>
       {!(incorrectGuess.length >= CHANCES) ? (
         <div className="main">
+          <div className="helpBox">
+            <span
+              onClick={() => setInfo(!info)}
+              className={`info ${info ? "visible" : "hide"}`}
+            >
+              {INFO}
+            </span>
+          </div>
           <div className="keyboardContainer">
             <div className="title">SNOWMAN</div>
             <HangmanWord guess={guess} word={word} />
@@ -70,6 +91,9 @@ const App = () => {
               guess={guess}
               incorrectGuess={incorrectGuess}
             />
+            <div className="help">
+              <button onClick={onInfo}>Help</button>
+            </div>
           </div>
           <div className="drawingContainer">
             <Hangman incorrectGuess={incorrectGuess} />
@@ -80,7 +104,7 @@ const App = () => {
           <span>
             You Lose. The word is <span>{word}</span>
           </span>
-          <button onClick={() => window.location.reload()}>Start Over</button>
+          <button onClick={onGameOver}>Start Over</button>
         </div>
       )}
     </>

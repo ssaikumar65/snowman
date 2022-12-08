@@ -24,6 +24,7 @@
 .main {
   display: flex;
   user-select: none;
+  position: relative;
 }
 .keyboardContainer,
 .drawingContainer {
@@ -39,7 +40,8 @@
   min-width: 700px;
 }
 .drawingContainer {
-  min-width: 500px;
+  min-width: 700px;
+  justify-content: flex-start;
 }
 
 .keyboardContainer .title {
@@ -67,7 +69,8 @@
   color: var(--secondary);
 }
 
-.gameOver button {
+.gameOver button,
+.help button {
   padding: 8px 12px;
   border-radius: 4px;
   border: none;
@@ -81,4 +84,47 @@
 }
 .gameOver button:hover {
   background-color: var(--primary);
+}
+
+.help {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+.helpBox {
+  display: flex;
+  position: absolute;
+  right: 0;
+  overflow: hidden;
+  padding: 8px 16px;
+}
+.helpBox .info {
+  max-width: 400px;
+  background-color: var(--primary);
+  color: var(--bg);
+  font-weight: 500;
+  border-radius: 4px;
+  padding: 16px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+.visible {
+  transform: translateX(0%);
+}
+.hide {
+  transform: translateX(110%);
+}
+@media screen and (max-width: 500px) {
+  .main {
+    flex-direction: column;
+  }
+  .keyboardContainer,
+  .drawingContainer {
+    padding: 50px 0;
+    min-height: auto;
+  }
+  .gameOver {
+    font-size: 24px;
+  }
 }
