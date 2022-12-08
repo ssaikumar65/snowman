@@ -1,0 +1,19 @@
+.hangmanWord {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  gap: 15px;
+}
+.hangmanWord .letterBox {
+  width: 30px;
+  height: 30px;
+  border-bottom: 4px solid var(--primary);
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: capitalize;
+}
+.hidden {
+  visibility: hidden;
+}
